@@ -1,0 +1,45 @@
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasOrder" aria-labelledby="offcanvasOrderLabel">
+    <div class="offcanvas-body m-3">
+
+        <div class="order-order">
+            <h2>Заказы</h2>
+            <hr />
+            <div id="order">
+
+            </div>
+            {% for order in orders %}
+                <div class="order-item">
+                  <div>
+                    <h4>Ресторан: </h4> <p>{val.title}</p>
+                  </div>
+                  <div>
+                    <h4>Дата: </h4> <p>{val.order_date}</p>
+                  </div>
+                  <div>
+                    <h4>Сумма: </h4> <p>{val.amount} KGS</p>
+                  </div>
+                </div>
+            {% endfor %}
+          </div>
+
+    </div>
+</div>
+
+<script >
+    function orders(){
+        const order = document.getElementById('order')
+
+        fetch('/get-orders',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        }).then( res => {
+            return res.json()
+        }).then( data => {
+            console.log(data)
+        })
+    }
+</script>

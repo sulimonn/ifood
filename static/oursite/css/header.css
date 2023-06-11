@@ -1,0 +1,87 @@
+header {
+  font-family: 'Nunito', sans-serif;
+  position: fixed;
+  width: 100%;
+  background-color: #eb1d36;
+  z-index: 11;
+  top: 0;
+}
+.container {
+  padding-top: 15px;
+  width: 75%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  position: relative;
+}
+.logo {
+  width: 100px;
+}
+.logopic {
+  width: inherit;
+}
+.logo_icon {
+  fill: #ef9a53;
+}
+.head-location {
+  position: absolute;
+  top: 36px;
+  font-weight: 700;
+  right: 150px;
+  color: #f5eddc;
+  cursor: pointer;
+}
+
+.hidden {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffe5b4;
+}
+@media screen and (max-width: 480px) {
+  .logo {
+    width: 80px;
+  }
+}
+
+/*Button*/
+
+.button {
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  align-items: center;
+}
+.btn {
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: #424242e6;
+  padding: 15px 35px;
+  border-radius: 25px;
+  border: none;
+  background-color: #f5eddc;
+  transition: all 0.25s;
+}
+
+.btn:hover {
+  box-shadow: 0 3px 12px 2px rgba(0, 0, 0, 0.276);
+  margin-right: -1px;
+  padding: 31px 35.25px -0.5px;
+  background-color: #cfd2cf;
+  font-size: 15px;
+}
+
+.btn:active {
+  box-shadow: none;
+  cursor: grabbing;
+  padding: 15px 35px;
+  background-color: #cfd2cf;
+}
+
+@media screen and (max-width: 480px) {
+  .btn {
+    padding: 12px 30px;
+  }
+}

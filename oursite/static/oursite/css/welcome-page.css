@@ -1,0 +1,175 @@
+.welcome {
+  font-family: 'Nunito', sans-serif;
+  background-color: #eb1d36;
+  position: relative;
+}
+.welcome .transition {
+  width: 100%;
+  pointer-events: none;
+  margin-bottom: -10px;
+}
+.path-0 {
+  animation: pathAnim-0 4s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes pathAnim-0 {
+  0% {
+    d: path(
+      'M 0,400 C 0,400 0,200 0,200 C 170.40000000000003,194 340.80000000000007,188 489,207 C 637.1999999999999,226 763.2,270 918,273 C 1072.8,276 1256.4,238 1440,200 C 1440,200 1440,400 1440,400 Z'
+    );
+  }
+  25% {
+    d: path(
+      'M 0,400 C 0,400 0,200 0,200 C 122,188.93333333333334 244,177.86666666666665 415,194 C 586,210.13333333333335 806,253.4666666666667 985,259 C 1164,264.5333333333333 1302,232.26666666666665 1440,200 C 1440,200 1440,400 1440,400 Z'
+    );
+  }
+  50% {
+    d: path(
+      'M 0,400 C 0,400 0,200 0,200 C 207.7333333333333,229.73333333333335 415.4666666666666,259.4666666666667 569,256 C 722.5333333333334,252.53333333333333 821.8666666666666,215.8666666666667 958,201 C 1094.1333333333334,186.1333333333333 1267.0666666666666,193.06666666666666 1440,200 C 1440,200 1440,400 1440,400 Z'
+    );
+  }
+  75% {
+    d: path(
+      'M 0,400 C 0,400 0,200 0,200 C 122.13333333333333,183.2 244.26666666666665,166.4 417,167 C 589.7333333333333,167.6 813.0666666666666,185.60000000000002 992,194 C 1170.9333333333334,202.39999999999998 1305.4666666666667,201.2 1440,200 C 1440,200 1440,400 1440,400 Z'
+    );
+  }
+  100% {
+    d: path(
+      'M 0,400 C 0,400 0,200 0,200 C 170.40000000000003,194 340.80000000000007,188 489,207 C 637.1999999999999,226 763.2,270 918,273 C 1072.8,276 1256.4,238 1440,200 C 1440,200 1440,400 1440,400 Z'
+    );
+  }
+}
+.welcome__container {
+  padding-top: 170px;
+  padding-bottom: -150px;
+  width: 75%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  color: #424242e6;
+}
+
+.welcome__pic {
+  flex: 1;
+}
+.welcome__burger {
+  width: 90%;
+}
+.welcome__content {
+  flex: 1;
+  text-align: center;
+}
+.welcome__content h1 {
+  font-size: 60px;
+  margin-bottom: 30px;
+}
+.welcome__content p {
+  font-size: 25px;
+  margin-bottom: 40px;
+}
+@media screen and (max-width: 400px) {
+  .welcome__container {
+    padding-top: 130px;
+    overflow-x: hidden;
+  }
+  .welcome__burger {
+    width: 120px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .welcome__content h1 {
+    font-size: 30px;
+  }
+  .welcome__content p {
+    font-size: 19px;
+  }
+}
+@media (max-width: 600px) and (min-width: 401px) {
+  .welcome__burger {
+    width: 300px;
+    margin: 0 auto;
+  }
+  .welcome__content h1 {
+    font-size: 40px;
+  }
+  .welcome__content p {
+    font-size: 21px;
+  }
+}
+@media screen and (max-width: 1200px) and (min-width: 601px) {
+  .welcome__burger {
+    width: 450px;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .welcome__container {
+    flex-direction: column;
+  }
+  .welcome__pic {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+.sh__input-group {
+  height: 40px;
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 60px 1fr;
+  align-items: center;
+  font-family: 'Nunito', sans-serif;
+}
+.sh__input__icon {
+  padding: 15px;
+  border-radius: 3px 0 0 3px;
+  margin-right: -2px;
+  background-color: #cfd2cf;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #064420;
+}
+.sh__input {
+  padding: 13.5px;
+  border-radius: 0 3px 3px 0;
+  border: none;
+  font-size: 14px;
+  background-color: #f5eddc;
+  font-family: 'Nunito', sans-serif;
+}
+.sh__input:focus {
+  outline: none;
+  pointer-events: none;
+}
+@media screen and (max-width: 380px) {
+  .sh__title {
+    font-size: 13px;
+  }
+  .sh__input {
+    padding: 6px 3px;
+  }
+  .sh__input__icon {
+    height: 33px;
+    width: 33px;
+  }
+  .flag {
+    height: 13px;
+  }
+}
+@media (max-width: 480px) and (min-width: 381px) {
+  .sh__input__icon {
+    height: 49px;
+    padding: 0 13px;
+  }
+  .sh__title {
+    font-size: 16px;
+  }
+}
+@media (max-width: 600px) and (min-width: 481px) {
+  .sh__title {
+    font-size: 18px;
+  }
+}

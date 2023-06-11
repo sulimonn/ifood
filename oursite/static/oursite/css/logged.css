@@ -1,0 +1,177 @@
+.logged {
+  display: flex;
+  font-family: 'Nunito', sans-serif;
+  align-items: center;
+  justify-content: space-between;
+  width: 90px;
+}
+
+.account,
+.order {
+  font-family: 'Nunito', sans-serif;
+  background-color: rgba(255, 255, 255, 0.19);
+  box-shadow: 1px 1px 0 1px rgba(55, 0, 0, 0.1);
+  border-radius: 70% 100% 60% 70%;
+  width: 39px;
+  height: 39px;
+  display: flex;
+  align-items: center;
+}
+.account:hover,
+.order:hover {
+  background-color: rgba(255, 255, 255, 0.09);
+}
+.account::after{
+  opacity: 0;
+ }
+
+.account svg {
+  pointer-events: none;
+  margin: 0 auto;
+  width: 20px;
+  height: 20px;
+  fill: #f5eddc;
+  cursor: pointer;
+}
+.account h2 {
+  margin: 0;
+}
+.account::after {
+  opacity: 1;
+  background-color: rgb(255, 255, 255);
+}
+.user-content {
+  font-family: 'Nunito', sans-serif;
+  padding: 20px 0;
+  display: flex;
+  width: 100%;
+  margin: 0 auto 0 0;
+  position: relative;
+}
+.user-content:first-child .user-data:first-child .user-item:first-child {
+  margin-bottom: 9px;
+}
+.user-content::after {
+  top: 0;
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.user-data {
+  flex: 1;
+  font-size: 14px;
+  margin: 0;
+}
+.user-item {
+  margin: 0;
+}
+.user-label {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.5);
+}
+.user-da {
+  margin: 6px 0;
+  font-size: 17px;
+  color: rgba(0, 0, 0, 0.7);
+}
+.user-da a {
+  color: orange;
+  font-size: 12px;
+  cursor: pointer;
+}
+.user-card {
+  width: 90%;
+  padding: 8px 15px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.765);
+}
+
+.change {
+  display: flex;
+  align-items: start;
+}
+.change p {
+  margin: 0;
+  color: red;
+  cursor: pointer;
+}
+.order::after {
+  opacity: 1;
+  background-color: rgb(255, 255, 255);
+}
+
+.order svg {
+  pointer-events: none;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  fill: #f5eddc;
+  cursor: pointer;
+}
+.order-item {
+  margin: 15px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.252);
+}
+.order-item div {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.order-item p,
+.order-item h4 {
+  margin: 5px 0;
+}
+
+.accmodal {
+  font-family: 'Nunito', sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  pointer-events: none;
+  transition: all 0.3s;
+  overflow: scroll;
+}
+
+.accmodal-content {
+  z-index: 11;
+  pointer-events: all;
+  position: inherit;
+  top: 85px;
+  right: 85px;
+  align-items: center;
+  width: 330px;
+  padding: 20px;
+  background-color: #fff;
+
+  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
+}
+.nn-active {
+  transform: translate(0, -60vh);
+}
+.accmodal-content .a-active {
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5);
+  transform: translate(0, 60vh);
+}
+
+.isAcc {
+  right: 120px;
+}
+.orderis {
+  right: 80px;
+}
+
+@media (max-width: 580px) {
+  .modal-content {
+    width: 84%;
+  }
+}

@@ -1,0 +1,53 @@
+{% extends 'oursite/index.html' %}
+{% load static %}
+
+{% block link %}
+        <link rel="stylesheet" href="{% static 'oursite/css/restaurants-page.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="indRest">
+    <a class="rest_home" href="{% url 'home' %}">На главную<span></span></a>
+        <div class="indRest__container">
+            <div class="sidebar">
+                <h1>Фильтры</h1>
+                    {% for filter in filters %}
+                        <div>
+                        {{ filter.title }}
+                        </div>
+                    {% endfor %}
+
+            </div>
+            {% if location != none %}
+                <div class="contentrest">
+                    <h1>Рядом с вами</h1>
+                    <div class="content_rest_img">
+                        {% if restsNearByUser != None %}
+                            <p>Пусто</p>
+                        {% else %}
+                            {% for rest in restsNearByUser %}
+                              {% include 'oursite/restaurants/cards.html' %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <h2>Остальные</h2>
+                    <div class="content_rest_img">
+                            {% for rest in rests %}
+                              {% include 'oursite/restaurants/cards.html' %}
+                            {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="content_rest_img">
+                    {% for rest in rests %}
+                      {% include 'oursite/restaurants/cards.html' %}
+
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

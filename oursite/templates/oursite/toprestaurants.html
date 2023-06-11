@@ -1,0 +1,14 @@
+{% load static %}
+<section class="rest-s" >
+        <div class="rest-s__container">
+            <h1>Лучшие рестораны и кафе</h1>
+            <div class="row" >
+                {% for rest in rests %}
+                    <a class="rest-s__rest"  href="{% url 'restaurant' rest.slug %}">
+                      <img src='{% static rest.photo %}' id='rest' alt="image not found"/>
+                      <label>{{ rest.title }}</label>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>

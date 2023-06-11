@@ -1,0 +1,29 @@
+{% extends 'oursite/logging/unlogged.html' %}
+
+{% block form %}
+    <div id="reg" class='registration'>
+        <h1 class="reg_title">Зарегистрироваться в <span> ifood</span></h1>
+        <hr />
+        <form class="reg__input-group" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="reg__input">
+                    <span class='empty'>{{ field.label }}</span>
+                      {{ field }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="errorForm">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+                  </div>
+            {% endfor %}
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+          <div class="button">
+              <button type='submit' name='submit' class="btn">Зарегистривоваться</button>
+          </div>
+        </form>
+            <div class="reg__footer">
+              <p >Уже зарегистрированы? <a href="{% url 'auth' %}?next={{ request.GET.next }}">Войти</a></p>
+            </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% load static %}
+
+    <a class='card' href="{% url 'restaurant' rest.rest.slug %}">
+        <div class='card__img'>
+            <img src='{% static rest.rest.photo %}' id="img__title"  alt="">
+        </div>
+            <span>
+                <h3>{{ rest }}</h3>
+                <p>{{ rest.rest.cat}}</p>
+            </span>
+    </a>

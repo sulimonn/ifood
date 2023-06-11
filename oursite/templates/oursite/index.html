@@ -1,0 +1,108 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="{% static 'oursite/images/logored.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '/oursite/css/index.css' %}" />
+    <link rel="stylesheet" href="{% static '/oursite/css/head.css' %}" />
+    <link rel="stylesheet" href="{% static '/oursite/css/subheader.css' %}" />
+    <link rel="stylesheet" href="{% static '/oursite/css/btn.css' %}" />
+    <link rel="stylesheet" href="{% static '/oursite/css/logged.css' %}" />
+    <link rel="stylesheet" href="{% static '/oursite/css/locations.css' %}" />
+    <style>
+        .account::after{opacity: 0;display: none}
+    </style>
+  <script type="text/javascript">
+
+
+    function initMap() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: latitude, lng: longitude },
+        zoom: 16
+      });
+      var marker = new google.maps.Marker({
+        position: { lat: latitude, lng: longitude },
+        map: map,
+        title: 'Your location'
+      });
+    }, function(error) {
+      console.error('Error getting location:', error);
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 0, lng: 0 },
+        zoom: 2
+      });
+    });
+  }
+  initMap()
+        const user = '{{ request.user }}'
+        function getToken(name) {
+            let tokenValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let tokens = document.cookie.split(';');
+                for (let i = 0; i < tokens.length; i++) {
+                    let token = tokens[i].trim();
+                    if (token.substring(0, name.length + 1) === (name + '=')) {
+                        tokenValue = decodeURIComponent(token.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return tokenValue;
+        }
+        const csrftoken = getToken('csrftoken')
+  </script>
+
+      <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbFt7bwoDzdnt2yhmbXJq0aaIvV2EVv_4&callback=initMap">
+      </script>
+
+    {% block link %}{% endblock link %}
+    <title>{{ title }}</title>
+  </head>
+  <body>
+  <header>
+      <div id="header" class="container">
+        <a href="{% url 'home' %}" class="logo">
+          <img class="logopic" src="{% static 'oursite/images/logo.svg' %}" alt="logo" />
+        </a>
+
+        {% if request.user.is_authenticated %}
+            {% if request.user.current_address != None %}
+                <a class="head-location" data-bs-toggle="modal" data-bs-target="#locationModal">{{ request.user.current_address }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"></path>
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                </svg>
+                </a>
+            {% endif %}
+            {% include 'oursite/logging/logged.html' %}
+        {% else %}
+        <div class="button modalShow">
+          <a href="{% url 'login' %}?next={{ request.path }}"><button class="btn modalShow">Начать</button></a>
+        </div>
+      {% endif %}
+      </div>
+    </header>
+
+    {% include 'oursite/ui/locations.html' %}
+    {% block content %} {%endblock%}
+
+    {% if request.user.is_authenticated %}
+        {% include 'oursite/ui/accmodal.html' %}
+        {% include 'oursite/ui/ordermodal.html' %}
+    {% endif %}
+    <script src="{% static '/oursite/js/scrip.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  </body>
+</html>

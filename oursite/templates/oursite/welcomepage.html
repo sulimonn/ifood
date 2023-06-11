@@ -1,0 +1,59 @@
+{% extends "oursite/index.html" %} {% load static %} {% block link %}
+    <link rel="stylesheet" href="{% static '/oursite/css/welcome-page.css' %}" />
+    <link rel="stylesheet" href="{% static '/oursite/css/restaura.css' %}" />
+    <link rel="stylesheet" href="{% static '/oursite/css/delivery.css' %}" />
+{% endblock link %}
+
+{% block content %}
+
+    {% include 'oursite/ui/subhead.html' %}
+<div class="welcome">
+    <div class="welcome__container">
+        <div class="welcome__pic">
+            <img class="welcome__burger" src="{% static 'oursite/images/welcome.png' %}"  alt=""/>
+        </div>
+        <div class="welcome__content">
+            <h1>Доставка еды</h1>
+            <p>Вы можете заказать здесь все что захотите</p>
+            {% include 'oursite/ui/locattion_modal.html' %}
+        </div>
+    </div>
+    <svg width="100%" height="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150">
+        <path
+          d="M 0,400 C 0,400 0,200 0,200 C 170.40000000000003,194 340.80000000000007,188 489,207 C 637.1999999999999,226 763.2,270 918,273 C 1072.8,276 1256.4,238 1440,200 C 1440,200 1440,400 1440,400 Z"
+          stroke="none"
+          stroke-width="0"
+          fill="#F5EDDC"
+          fill-opacity="1"
+          class="transition-all duration-300 ease-in-out delay-150 path-0"></path>
+    </svg>
+</div>
+
+
+{% include 'oursite/toprestaurants.html' %}
+
+
+    <section class="delivery">
+      <div class="del__container">
+        <h1>Доставим все что угодно</h1>
+        <div class="why_coop">
+          <div class="why_coop__column">
+            <img src="{% static 'oursite/images/restaurants.svg' %}" />
+            <h2>Лучшие рестораны вашего города</h2>
+            <p>В нашем приложении — огромный выбор ресторанов. Закажите свою любимую еду или откройте для себя новые рестораны поблизости!</p>
+          </div>
+          <div class="why_coop__column">
+            <img src="{% static 'oursite/images/groceries.svg' %}" />
+            <h2>Быстрая доставка</h2>
+            <p>Наш плюс — скорость. Закажите доставку в черте города и мы все доставим за считанные минуты.</p>
+          </div>
+          <div class="why_coop__column">
+            <img src="{% static 'oursite/images/delivery.svg' %}" />
+            <h2>Доставка продуктов и не только</h2>
+            <p>В нашем приложении есть все необходимое! От супермаркетов до небольших магазинов, от аптек до флористических бутиков — если нужный товар продается в вашем городе, мы доставим его вам!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}

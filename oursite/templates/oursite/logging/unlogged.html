@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" type="image/x-icon" href="{% static 'oursite/images/logored.png' %}">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static '/oursite/css/logging.css' %}" />
+    <link rel="stylesheet" href="{% static '/oursite/css/btn.css' %}" />
+      <title>{{ title }}</title>
+
+  </head>
+<body>
+
+
+<div class='modal active roo'>
+    <div class='modal-content c-active'>
+{% block form %}
+
+{% endblock %}
+    <a href="{% url 'home' %}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">На главную</a>
+    </div>
+</div>
+    <script>
+    for (const element of document.getElementsByClassName('reg__input')) {
+        element.children[1].onchange = () => {
+            if (element.children[1].value) {
+                 element.children[0].className = 'full'
+             } else {
+                 element.children[0].className = 'empty'
+            }
+        }
+    }
+</script>
+</body>

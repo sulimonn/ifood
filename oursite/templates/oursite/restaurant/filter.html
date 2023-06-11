@@ -1,0 +1,13 @@
+
+<div class="sidebar">
+  <h2>Filter</h2>
+        <a href="{% url 'restaurant' rest_slug %}">
+            Все продукты
+        </a>
+      {% for filter in filters %}
+        <a href="{% url 'restaurant' rest_slug %}?filter={{ filter.pk }}">
+            {{ filter.title }}
+        </a>
+      {% endfor %}
+</div>
+

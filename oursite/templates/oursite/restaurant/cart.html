@@ -1,0 +1,229 @@
+{% load static %}
+
+<div class='korzina'>
+    <div class="corf_header">
+        <h2>Ваш заказ</h2>
+    </div>
+    <div class="corf_empty" id="emptyCart">
+        <img src='{% static 'oursite/images/astronaut.svg' %}' alt="" />
+        <p>Пока что корзина пуста. Добавленные вами продукты будут отображаться здесь!</p>
+    </div>
+    <div class="corf_full" id="cFull">
+
+    </div>
+</div>
+
+
+<script>
+        function order() {
+            const cartFoods = document.getElementsByClassName('corf_foods')
+            let arr = []
+            for (const el of cartFoods) {
+                arr.push(el.dataset.cart)
+            }
+            fetch('../../order/',{
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body:JSON.stringify({
+                    'arr': arr
+                })
+            }).then((res) => {
+                if(res.status === 200){
+                    window.location.replace(res.url)
+                    removeAll()
+                }
+                else return res.json()
+            }).then((e) =>{
+                    alert(e.error)
+                })
+
+        }
+
+        function removeAll(){
+            fetch('../../remove-all/',{
+                method: 'POST',
+                headers:{
+                    'Accept': 'application/json, text/plain, */*',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    'user': user,
+                    'rest': {{ rest.id }}
+                })
+
+            }).then(res => {
+                return res.json()
+            }).then(data => {
+                console.log(data)
+            })
+            document.getElementById('cFull').innerText = ''
+            document.getElementById('emptyCart').style.display = 'block'
+        }
+
+        function updateCart(val) {
+            if (val.length !== 0) {
+
+                const cart = document.getElementById('cFull')
+                cart.innerText = ''
+
+                let fullCart = document.createElement('div')
+
+                const cartOrder = document.createElement('div')
+                cartOrder.className = 'corf_order_button'
+                const orderButton = document.createElement('button')
+                orderButton.className = 'order_button'
+                const empty = document.getElementById('emptyCart')
+                empty.style.display = 'none'
+                const removeAllBtn = document.createElement('button')
+                removeAllBtn.onclick = () => removeAll()
+                removeAllBtn.className = 'remove-all'
+                removeAllBtn.innerText = 'Удалить все'
+
+
+                fullCart.className = 'corf_f'
+
+                let total = 0
+
+                for (const food of val) {
+                    const corfFoods = document.createElement('div')
+                    corfFoods.className = 'corf_foods'
+                    corfFoods.dataset.cart = food.id
+                    const corfFood = document.createElement('div')
+                    corfFood.className = 'corf_food'
+
+
+                    const span = document.createElement('span')
+                    span.innerText = 'x' + food.quantity
+                    const foodName = document.createElement('div')
+                    foodName.className = 'food_name'
+                    foodName.innerText = food.food__title
+                    const foodPrice = document.createElement('div')
+                    foodPrice.className = 'food_price'
+                    foodPrice.innerText = food.total + ' KGS'
+                    total += food.total
+                    corfFood.appendChild(span)
+                    corfFood.appendChild(foodName)
+                    corfFood.appendChild(foodPrice)
+                    const change = document.createElement('div')
+                    change.className = 'change_corf'
+                    const remove = document.createElement('div')
+                    remove.className = 'corf_delete add-cart1'
+                    remove.dataset.action = 'remove'
+                    remove.dataset.id = food.food
+                    remove.innerText = '-'
+                    const add = document.createElement('div')
+                    add.className = 'corf_add add-cart1'
+                    add.dataset.id = food.food
+                    add.dataset.action = 'add'
+                    add.innerText = '+'
+                    change.appendChild(remove)
+                    change.appendChild(add)
+
+                    corfFoods.appendChild(corfFood)
+                    corfFoods.appendChild(change)
+
+                    fullCart.appendChild(corfFoods)
+                }
+
+                orderButton.innerText = 'Заказать за ' + total
+                const a = document.createElement('a')
+                a.href = '/confirm-order/?rest={{ rest_slug }}&location={{ user.current_address }}'
+                a.appendChild(orderButton)
+                cartOrder.appendChild(a)
+                cart.appendChild(removeAllBtn)
+
+                cart.appendChild(fullCart)
+                cart.appendChild(cartOrder)
+
+                for (let element of document.getElementsByClassName('add-cart1')) {
+                    element.onclick = () => sendData(element.dataset.id, element.dataset.action)
+                }
+            }
+
+        }
+
+
+
+
+
+
+        for (let element of document.getElementsByClassName('add-cart')) {
+            element.addEventListener('click', () => {
+                if(user !== 'AnonymousUser')
+                    sendData(element.dataset.id, element.dataset.action)
+                else
+                    alert('You are not logged in!')
+            })
+        }
+
+        function sendData(foodId, action) {
+            let cartFoods = fetch('/add-to-cart/', {
+                method: 'POST',
+                credentials: "same-origin",
+                mode: "same-origin",
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    'foodId': foodId,
+                    'action': action
+                })
+
+            }).then((res) => {
+                return res.json()
+            }).catch(error => console.error(error)).then(() => {
+                return fetch('../../get-cart/', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'X-CSRFToken': csrftoken
+                    }
+                }).then((res) => {
+                    return res.json()
+                }).then(data => {
+                    return data
+                }).then(() => {
+                     return getCart()
+                })
+            })
+
+            cartFoods.then(res => {
+                if(res.length !== 0)
+                    updateCart(res)
+                else {
+
+                    removeAll()
+                }
+            })
+
+
+        }
+        function getCart() {
+            return fetch('../../get-cart/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    'rest': {{ rest.id }}
+                })
+            }).then((res) => {
+                return res.json()
+            }).then(data => {
+                return data
+            })
+        }
+        getCart().then((res) => {
+            if (res.length !== 0)
+                updateCart(res)
+            else
+                removeAll()
+        })
+</script>

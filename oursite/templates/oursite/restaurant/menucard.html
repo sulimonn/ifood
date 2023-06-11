@@ -1,0 +1,14 @@
+    {% load static %}
+    {% for menu in menus %}
+
+<div  class="add-cart food" data-id={{ menu.pk }} data-action="add">
+    <div class="food_img"><img src='{% static menu.photo %}' alt="" /></div>
+    <div class="food_desc">
+      <h5>{{ menu.title }}</h5>
+      <p>{{ menu.price }} KGS</p>
+    </div>
+    <div class="add_button">
+      <span>+</span>
+    </div>
+  </div>
+    {% endfor %}

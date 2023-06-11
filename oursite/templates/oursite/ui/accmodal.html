@@ -1,0 +1,195 @@
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-body m-3">
+        <p><a href="/logout" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Выйти</a></p>
+        <h2>Привет {{request.user.first_name}}</h2>
+        <div class="user-content inp">
+            <div class="user-data">
+                <div class="user-item" id="ch-name">
+                    <p class="user-label">Имя</p>
+                    <p class="user-da">{{request.user.first_name}}</p>
+                    <input type="text" value="{{ request.user.first_name }}" hidden>
+                </div>
+            </div>
+
+            <div class="change">
+                <p data-action="ch-name" class="change-info">Редактировать</p>
+            </div>
+        </div>
+
+        <div class="user-content">
+            <div class="user-data">
+                <div class="user-item">
+                    <p class="user-label">Почта</p>
+                    <p class="user-da">{{request.user.email}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="user-content inp">
+            <div class="user-data">
+                <div class="user-item" id="ch-pnumber">
+                    <p class="user-label">Телефон</p>
+                    <p class="user-da">
+                        {%if request.user.phone_number == None%}
+                            <a data-action="ch-pnumber"  class="change-info">Ваш номер телефона?</a>
+                        {% else %} {{request.user.phone_number}} {% endif %}
+                    </p>
+                    <input type="number" value="{{ request.user.phone_number }}" hidden>
+                </div>
+            </div>
+            <div class="change">
+                <p data-action="ch-pnumber" class="change-info">Редактировать</p>
+            </div>
+        </div>
+
+        <div class="user-content inp">
+            <div class="user-data">
+                <div class="user-item" id="ch-password">
+                    <p class="user-label">Пароль</p>
+                    <p class="user-da"><b>{{request.user.get_masked_password}}</b></p>
+                    <input type="password" value="" hidden>
+                </div>
+            </div>
+            <div class="change">
+                <p data-action="ch-password" class="change-info">Редактировать</p>
+            </div>
+        </div>
+
+        <div class="user-content">
+            <div class="user-data">
+                <div class="user-item">
+                    <p class="user-label">Способы оплаты</p>
+                    <p class="user-card">Добавить новую карту</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+const infos = document.getElementsByClassName('change-info')
+
+
+for (const info of infos) {
+    info.addEventListener('click', function (e){
+        const parent = e.target.parentNode.parentNode
+        const userItem = document.getElementsByClassName('inp')
+        for (const userItemElement of userItem) {
+            const child = userItemElement.children.item(0).children.item(0).children
+            const change =  userItemElement.children.item(1).children.item(0)
+                updateBtn(userItemElement.children.item(1), info)
+            if(parent === userItemElement){
+                child.item(2).hidden = false
+                child.item(2).id = 'changing'
+                child.item(2).className = 'form-control'
+                child.item(1).id = 'data'
+                child.item(1).hidden = true
+                change.hidden = true
+                change.id = 'change'
+
+            }
+            else{
+                child.item(2).removeAttribute('id')
+                child.item(1).removeAttribute('id')
+                change.removeAttribute('id')
+                child.item(2).hidden = true
+                child.item(1).hidden = false
+            }
+        }
+
+    })
+
+
+}
+
+function updateBtn(val, info){
+    const userItem = val
+    const btn = document.createElement('button')
+    btn.className = 'btn-change'
+    btn.id = 'changeBtn'
+    btn.innerText = 'Изменить'
+    btn.style = "margin: 9px; border: none; border-radius: 5px; font-size: 12px; padding: 6px 9px; background-color:rgba(0, 0, 0, 0.075);";
+    btn.addEventListener('click', update)
+    if(val.children.item(0) === info){
+        userItem.style = 'align-items: end;'
+        userItem.append(btn)
+    }
+    else{
+        if(userItem.children.item(1) !== null)
+            userItem.removeChild(userItem.children.item(1))
+        userItem.style =''
+    }
+}
+
+
+function update(){
+    document.addEventListener("click", back)
+    const input = document.getElementById('changing')
+    const data = input.value
+    const type = input.type
+    fetch('/update',{
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({
+            'data': data,
+            'type': type
+        })
+    }).then(res => {
+        res = res.json()
+        return res
+    }).then( data => {
+        if(data.status === 200)
+            updateView(data.data)
+        else
+            alert(data.data)
+
+    })
+}
+
+function back(event){
+    const elementToKeep = document.getElementById("data");
+    const elementToRemove = document.getElementById("changeBtn");
+    if (event.target !== elementToKeep && event.target !== elementToRemove) {
+
+        elementToRemove.parentNode.removeChild(elementToRemove);
+    }
+    else if(event.target === elementToKeep && event.target === elementToRemove){
+        document.removeEventListener('click', back)
+    }
+
+}
+
+function updateView(data){
+    const changing = document.getElementById('changing')
+    const dt = document.getElementById('data')
+    const change = document.getElementById('change')
+    changing.hidden = true
+    dt.hidden = false
+    if(changing.type === 'password'){
+        data = ''
+    }
+    dt.innerText = data
+    change.hidden = false
+    change.parentNode.style = ''
+    change.innerText = 'Изменено✓'
+    change.style.color = 'green'
+    setTimeout(()=>{
+        change.innerText = 'Редактировать'
+        change.removeAttribute('style')
+
+    }, 2000)
+    change.parentNode.removeChild(change.parentNode.children.namedItem('changeBtn'))
+    dt.removeAttribute('id')
+    changing.removeAttribute('id')
+    change.removeAttribute('id')
+
+}
+
+
+
+</script>

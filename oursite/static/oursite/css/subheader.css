@@ -1,0 +1,38 @@
+.subhead{
+    position: fixed;
+    top: 54px;
+    width: 100%;
+    background-color: #EB1D36;
+    transition: all .3s ease-in-out;
+    z-index: 9;
+}
+.hide{
+    transform: translate(0, -30vh);
+}
+.show{
+    transform: translate(0, 0);
+}
+.sh__container{
+    width: 75%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 15px;
+}
+.sh__title{
+    font-size: 20px;
+    font-weight: 600;
+    color: #424242e6;
+}
+@media screen and (max-width: 380px){
+    .sh__title{
+        font-size: 16px;
+    }
+}
+@media(max-width: 580px) and (min-width: 381px){
+    .sh__title{
+        font-size: 18px;
+    }
+}

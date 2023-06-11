@@ -1,0 +1,95 @@
+.orderheader{
+    pointer-events: none;
+    width: 100vw;
+    height: 90px;
+    position: fixed;
+    background-color: rgba(255, 226, 181, 0.336);
+}
+.orderheadercont{
+    height: 100%;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(255, 226, 181, 0.336);
+
+}
+.orderheader img{
+    width: 100px;
+}
+.order-confirm{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+.order-conf--content{
+    background: linear-gradient(40deg,#fff 66.667%,#fff 66.667%);
+    box-sizing: border-box;
+    position: sticky;
+    top: calc(20px);
+    width: 35%;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    margin-bottom: 100px;
+    padding: 28px 28px 50px;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 2px 8px 2px rgba(72, 72, 72, 0.23);
+    width: 500px;
+    margin: 0 auto;
+}
+.order-conf--content::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 20px;
+    background: linear-gradient(45deg,transparent 33.333%,#fff 0,#fff 66.667%,transparent 0),linear-gradient(-45deg,transparent 33.333%,#fff 0,#fff 66.667%,transparent 0);
+    background-size: 20px 40px;
+    background-position: 0 -20px;
+    bottom: -10px;
+    top: auto;
+}
+.order-conf-container{
+    width: 91%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+.products, .order-conf-container h2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.order-conf-btn{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.order-conf-btn button, .toHomepage button{
+    margin: 0 auto;
+    padding: 20px  50px;
+    background-color: #EB1D36;
+    border: .1px solid #EB1D36;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 40px;
+    transition: all .15s ease-in;
+}
+.order-conf-btn button:hover,
+.toHomepage button:hover{
+    background-color: #fff;
+    color: #EB1D36;
+}
+.thanks{
+    padding: 10px 20px;
+}
+.toHomepage{
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+}

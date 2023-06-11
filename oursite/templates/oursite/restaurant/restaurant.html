@@ -1,0 +1,38 @@
+{% extends 'oursite/index.html' %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'oursite/css/arestaura.css' %}">
+<link rel="stylesheet" href="{% static 'oursite/css/newsidebar.css' %}">
+<link rel="stylesheet" href="{% static 'oursite/css/cart.css' %}">
+{% endblock %}
+{% block content %}
+<div class="restauran">
+      <div class="arest">
+          <a class="rest_home" href="{% url 'home' %}">На главную<span></span></a><a
+              class="rest_home" href="{% url 'restaurants' %}">Рестораны<span></span></a>
+        <div class="arest_header">
+          <h1>{{ title }}</h1>
+        </div>
+        <div class="a_rest__container">
+          {% include 'oursite/restaurant/filter.html' %}
+          <div class="menu" id="menu">
+            {% if menus == None %}
+                <h1>Пусто</h1>
+            {% else %}
+                {% if filt == None %}
+                   {% include 'oursite/restaurant/menucard.html' %}
+                {% else %}
+                    {% include 'oursite/restaurant/menucard.html' %}
+                {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="corf">
+        {% include 'oursite/restaurant/cart.html' %}
+      </div>
+    </div>
+
+
+
+{% endblock %}

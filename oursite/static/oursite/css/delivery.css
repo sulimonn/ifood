@@ -1,0 +1,44 @@
+.delivery{
+    font-family: 'Nunito', sans-serif;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: #F5EDDC;
+}
+.del__container{
+    width: 75%;
+    margin: 0 auto;
+}
+.del__container h1{
+    text-align: center;
+    font-size: 40px;
+}
+.why_coop{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.why_coop__column{
+    width: 310px;
+    padding: 15px 25px;
+    text-align: center;
+}
+.why_coop__column p{
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 300;
+    text-align: center;
+    color: #000;
+}
+
+@media screen and (max-width: 480px){
+    .del__container h1{
+        display: none;
+    }
+}
+@media (max-width: 900px) and (min-width: 481px){
+    .del__container{
+        width: 90%;
+    }
+
+}
